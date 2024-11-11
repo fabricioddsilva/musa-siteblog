@@ -25,7 +25,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(Model model){
-        model.addAttribute("posts", blogService.findAllPosts());
+        model.addAttribute("posts", blogService.recentPosts());
         return "index";
     }
 

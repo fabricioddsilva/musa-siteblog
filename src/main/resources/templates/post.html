@@ -121,13 +121,12 @@
             <!-- Recent Posts Widget -->
             <div class="recent-posts-widget widget-item">
 
-              <h3 class="widget-title">Recent Posts</h3>
+              <h3 class="widget-title">Postagens Recentes</h3>
 
-              <div class="post-item">
-                <img src="assets/img/blog/blog-recent-1.jpg" alt="" class="flex-shrink-0">
+              <div class="post-item" th:each="recentPost : ${recentPosts}">
                 <div>
-                  <h4><a href="post.html">Nihil blanditiis at in nihil autem</a></h4>
-                  <time datetime="2020-01-01">Jan 1, 2020</time>
+                  <h4><a th:href="@{/blog/post/{id}(id = ${recentPost.id})}" th:text="${recentPost.title}"></a></h4>
+                  <time th:text="${recentPost.date}"></time>
                 </div>
               </div><!-- End recent post item-->
 

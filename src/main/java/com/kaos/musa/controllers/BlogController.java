@@ -18,6 +18,7 @@ public class BlogController {
     @GetMapping("/blog")
     public String blog(Model model){
         model.addAttribute("posts", service.findAllPosts());
+        model.addAttribute("recentPosts", service.recentPosts());
         return "blog";
     }
 
@@ -35,6 +36,7 @@ public class BlogController {
     @GetMapping("/blog/post/{id}")
     public String post(@PathVariable String id, Model model){
         model.addAttribute("post", service.findPost(id));
+        model.addAttribute("recentPosts", service.recentPosts());
         return "post";
     }
 

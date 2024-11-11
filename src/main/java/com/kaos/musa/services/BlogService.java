@@ -29,4 +29,8 @@ public class BlogService {
         }
         return repository.findById(id).get();
     }
+
+    public List<Post> recentPosts(){
+        return repository.findTop3ByOrderByDateDesc();
+    }
 }
