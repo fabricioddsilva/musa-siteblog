@@ -1,5 +1,6 @@
 package com.kaos.musa.services;
 
+import com.kaos.musa.entities.Lead;
 import com.kaos.musa.entities.Reader;
 import com.kaos.musa.repositories.LeadRepository;
 import com.kaos.musa.repositories.ReaderRepository;
@@ -15,12 +16,19 @@ public class HomeService {
     @Autowired
     private ReaderRepository readerRep;
 
-    //Reader Section
     public void insertReader(Reader reader){
         readerRep.save(reader);
     }
 
-    public boolean isEmailAlreadyRegistered(String email) {
-        return readerRep.existsByEmail(email);
+    public void insertLead(Lead lead) { leadRep.save(lead); }
+
+    public boolean isEmailAlreadyRegistered(Reader reader) {
+        return readerRep.existsByEmail(reader.getEmail());
     }
+
+    public boolean isEmailAlreadyRegistered(Lead lead) {
+        return leadRep.existsByEmail(lead.getEmail());
+    }
+
+
 }

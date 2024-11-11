@@ -20,7 +20,8 @@ public class Reader implements Serializable {
     public Reader() {
     }
 
-    public Reader(String email) {
+    public Reader(String id, String email) {
+        this.id = id;
         this.email = email;
     }
 
