@@ -3,11 +3,13 @@ package com.kaos.musa.controllers;
 import com.kaos.musa.entities.Post;
 import com.kaos.musa.services.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BlogController {
@@ -16,8 +18,12 @@ public class BlogController {
     private BlogService service;
 
     @GetMapping("/blog")
-    public String blog(Model model){
-        model.addAttribute("posts", service.findAllPosts());
+    public String blog(Model model, @RequestParam(defaultValue = "0") int page){
+        Page<Post> postPage = service.findAll(page);
+
+        model.addAttribute("posts", postPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", postPage.getTotalPages());
         model.addAttribute("recentPosts", service.recentPosts());
         return "blog";
     }

@@ -3,6 +3,8 @@ package com.kaos.musa.services;
 import com.kaos.musa.entities.Post;
 import com.kaos.musa.repositories.BlogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,8 +21,8 @@ public class BlogService {
         repository.save(post);
     }
 
-    public List<Post> findAllPosts(){
-       return repository.findAll();
+    public Page<Post> findAll(int page){
+       return repository.findAll(PageRequest.of(page, 4));
     }
 
     public Post findPost(String id){
