@@ -22,7 +22,7 @@ public class BlogService {
     }
 
     public Page<Post> findAll(int page){
-       return repository.findAll(PageRequest.of(page, 4));
+       return repository.findAllByOrderByDateDesc(PageRequest.of(page, 4));
     }
 
     public Post findPost(String id){

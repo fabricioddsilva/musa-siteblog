@@ -14,5 +14,6 @@ public interface BlogRepository extends MongoRepository<Post, String> {
 
     List<Post> findTop3ByOrderByDateDesc();
 
-    Page<Post> findAll(Pageable pageable);
+    Page<Post> findAllByOrderByDateDesc(Pageable pageable);
+
 }

@@ -1,7 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
-<head th:insert="~{fragments/fragments.html :: head}">
+<head th:fragment="head">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link th:href="@{/img/favicon.png}" rel="icon">
+  <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Megrim:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+  <link th:href="@{/vendor/aos/aos.css}" rel="stylesheet">
+  <link th:href="@{/vendor/glightbox/css/glightbox.min.css}" rel="stylesheet">
+  <link th:href="@{/vendor/swiper/swiper-bundle.min.css}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link th:href="@{/css/main.css}" rel="stylesheet">
   <title>Criar Post - Musa Blog</title>
 
 
@@ -9,13 +32,15 @@
   <script src="https://cdn.tiny.cloud/1/oq4e1u4w39o6o4vzkg076qhrrp30c36cwvu4t7xd8nlvcbb7/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
   <script>
-    // Inicializar o TinyMCE para o textarea de conteúdo
-    tinymce.init({
-      selector: '#content',  // Identificador do textarea
-      height: 300,
-      plugins: 'lists link image preview', // Plugins para recursos extras
-      toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image | preview', // Ferramentas disponíveis
-      menubar: false
+    document.addEventListener('DOMContentLoaded', function () {
+      // Inicializar o TinyMCE para o textarea de conteúdo
+      tinymce.init({
+        selector: '#article',  // Identificador do textarea
+        height: 300,
+        plugins: 'lists link image preview', // Plugins para recursos extras
+        toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | link image | preview', // Ferramentas disponíveis
+        menubar: false
+      });
     });
   </script>
 </head>
@@ -40,18 +65,18 @@
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <section class="create-post section">
-          <form action="/blog/newpost" method="post">
+          <form id="postForm" action="/blog/newpost" method="post">
             <div class="form-group mb-3">
               <label for="author">Autor</label>
-              <input type="text" class="form-control" id="author" name="author" required>
+              <input type="text" class="form-control" id="author" name="author" th:value="${authorName}" readonly>
             </div>
             <div class="form-group mb-3">
               <label for="title">Título</label>
               <input type="text" class="form-control" id="title" name="title" required>
             </div>
             <div class="form-group mb-3">
-              <label for="content">Conteúdo</label>
-              <textarea class="form-control" id="content" name="content" rows="10"></textarea>
+              <label for="article">Conteúdo</label>
+              <textarea class="form-control" id="article" name="content" rows="10"></textarea>
             </div>
             <div class="text-center">
               <button type="submit" class="btn btn-primary">Publicar</button>
@@ -135,7 +160,8 @@
 
       // Envia o formulário após salvar o conteúdo
       form.submit();
+    }); // Fechar corretamente o script
+  });
 </script>
-
 </body>
 </html>

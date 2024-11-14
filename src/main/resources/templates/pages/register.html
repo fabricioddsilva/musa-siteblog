@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{/fragments/fragments.html :: head}"></head>
+<body>
+
+<header th:replace="~{/fragments/fragments.html :: navmenu}"></header>
+
+<main class="d-flex align-items-center justify-content-center vh-100">
+  <div class="login-container p-5 shadow rounded text-center" style="max-width: 400px; width: 100%;">
+    <a th:href="@{/}" class="logo d-flex align-items-center justify-content-center mb-4">
+      <img th:src="@{/img/logo.png}" alt="Logo" style="width: 50px; height: 50px;">
+      <h1 class="sitename ms-2">Musa</h1>
+    </a>
+
+    <form action="/user/register" method="post" class="text-start">
+      <div class="mb-4">
+        <label for="username" class="form-label">Nome</label>
+        <input type="text" class="form-control form-control-lg" id="name" name="name" placeholder="Autor das postagens" required>
+      </div>
+      <div class="mb-4">
+        <label for="username" class="form-label">Usuário</label>
+        <input type="text" class="form-control form-control-lg" id="username" name="username" required>
+      </div>
+      <div class="mb-4">
+        <label for="password" class="form-label">Senha</label>
+        <input type="password" class="form-control form-control-lg" id="password" name="password" required>
+      </div>
+      <input type="hidden" id="role" name="role" value="ADMIN">
+      <button type="submit" class="btn btn-primary w-100 btn-lg">Registrar</button>
+      <p th:if="${msg}" th:text="${msg}"></p>
+    </form>
+  </div>
+</main>
+
+<div th:replace="~{/fragments/fragments.html :: foot}"></div>
+
+</body>
+</html>

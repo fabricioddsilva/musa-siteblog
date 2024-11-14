@@ -1,9 +1,11 @@
 package com.kaos.musa.controllers;
 
 import com.kaos.musa.entities.Post;
+import com.kaos.musa.entities.User;
 import com.kaos.musa.services.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +27,18 @@ public class BlogController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", postPage.getTotalPages());
         model.addAttribute("recentPosts", service.recentPosts());
-        return "blog";
+        return "pages/blog";
     }
 
     @GetMapping("/blog/newpost")
-    public String newPost(){
-        return "newpost";
+    public String newPost(Model model){
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if(authentication != null && authentication.isAuthenticated()){
+            var userDetails = (User) authentication.getPrincipal();
+            model.addAttribute("authorName", userDetails.getName());
+        }
+        return "pages/newpost";
     }
 
     @PostMapping("/blog/newpost")
@@ -43,7 +51,7 @@ public class BlogController {
     public String post(@PathVariable String id, Model model){
         model.addAttribute("post", service.findPost(id));
         model.addAttribute("recentPosts", service.recentPosts());
-        return "post";
+        return "pages/post";
     }
 
 

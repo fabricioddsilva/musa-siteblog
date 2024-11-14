@@ -24,7 +24,7 @@
 
   <!-- Main CSS File -->
   <link th:href="@{/css/main.css}" rel="stylesheet">
-  <title></title>
+  <title>Musa</title>
 </head>
 
 <!-- General Navmenu Template -->
@@ -50,7 +50,8 @@
 </header>
 
  <!-- General Footer and JS Template -->
- <footer id="footer" class="footer" th:fragment="foot">
+<div th:fragment="foot">
+ <footer id="footer" class="footer" >
 
    <div class="footer-newsletter">
      <div class="container">
@@ -88,6 +89,7 @@
          <ul>
            <li><i class="bi bi-chevron-right"></i> <a th:href="@{/}">Inicio</a></li>
            <li><i class="bi bi-chevron-right"></i> <a th:href="@{/#alt-features}">Funcionalidades</a></li>
+           <li><i class="bi bi-chevron-right"></i> <a th:href="@{/user/login}">Desenvolvedor</a></li>
            <li><i class="bi bi-chevron-right"></i> <a href="#">Termos de Serviço</a></li>
          </ul>
        </div>
@@ -132,4 +134,5 @@
 
  <!-- Main JS File -->
  <script th:src="@{/js/main.js}"></script>
+</div>
 </html>
