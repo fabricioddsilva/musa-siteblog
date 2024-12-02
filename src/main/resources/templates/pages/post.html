@@ -39,7 +39,7 @@
                 <div class="meta-top">
                   <ul>
                     <li class="d-flex align-items-center" th:text="*{author}"><i class="bi bi-person"></i></li>
-                    <li class="d-flex align-items-center"><i class="bi bi-clock"></i><time th:text="*{date}"></time></li>
+                    <li class="d-flex align-items-center"><i class="bi bi-clock"></i><time th:text="${#temporals.format(post.date, 'dd MMM yyyy')}" datetime="YYYY-MM-DD"></time></li>
                   </ul>
                 </div><!-- End meta top -->
 
@@ -78,7 +78,7 @@
               <div class="post-item" th:each="recentPost : ${recentPosts}">
                 <div>
                   <h4><a th:href="@{/blog/post/{id}(id = ${recentPost.id})}" th:text="${recentPost.title}"></a></h4>
-                  <time th:text="${recentPost.date}"></time>
+                  <time th:text="${#temporals.format(recentPost.date, 'dd MMM yyyy')}"></time>
                 </div>
               </div><!-- End recent post item-->
 

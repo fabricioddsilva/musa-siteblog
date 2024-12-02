@@ -26,14 +26,10 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
-                .headers(headers -> headers
-                        .contentSecurityPolicy("script-src 'self' https://cdn.tiny.cloud 'unsafe-inline';")
-
-                )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/user/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/user/register").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/user/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/blog/newpost").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/blog/newpost").hasRole("ADMIN")
                         .anyRequest().permitAll()

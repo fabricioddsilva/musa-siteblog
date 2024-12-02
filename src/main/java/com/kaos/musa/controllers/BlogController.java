@@ -3,6 +3,8 @@ package com.kaos.musa.controllers;
 import com.kaos.musa.entities.Post;
 import com.kaos.musa.entities.User;
 import com.kaos.musa.services.BlogService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,13 +22,20 @@ public class BlogController {
     private BlogService service;
 
     @GetMapping("/blog")
-    public String blog(Model model, @RequestParam(defaultValue = "0") int page){
+    public String blog(Model model, @RequestParam(defaultValue = "0") int page, HttpServletRequest request){
         Page<Post> postPage = service.findAll(page);
 
         model.addAttribute("posts", postPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", postPage.getTotalPages());
         model.addAttribute("recentPosts", service.recentPosts());
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("jwt".equals(cookie.getName())) {
+                    model.addAttribute("user", cookie.getValue());
+                }
+            }
+        }
         return "pages/blog";
     }
 

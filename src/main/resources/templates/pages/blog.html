@@ -7,7 +7,9 @@
 
 <body class="blog-page">
 
-<header th:insert="~{fragments/fragments.html :: navmenu}"></header>
+<header th:insert="~{fragments/fragments.html :: navmenu}">
+  <a th:href="@{/blog/newpost}" th:if="${user}">Novo Post</a>
+</header>
 
   <main class="main">
 
@@ -40,7 +42,8 @@
                     <div class="meta-top">
                       <ul>
                         <li class="d-flex align-items-center" th:text="${post.author}"><i class="bi bi-person"></i></li>
-                        <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <time th:text="${post.date}" datetime="YYYY-MM-DD"></time></li>
+                        <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <time th:text="${#temporals.format(post.date, 'dd MMM yyyy')}" datetime="YYYY-MM-DD"></time>
+                        </li>
                       </ul>
                     </div>
                     <div class="content">
@@ -104,7 +107,7 @@
               <div class="post-item" th:each="recentPost : ${recentPosts}">
                 <div>
                   <h4><a th:href="@{/blog/post/{id}(id = ${recentPost.id})}" th:text="${recentPost.title}"></a></h4>
-                  <time th:text="${recentPost.date}"></time>
+                  <time th:text="${#temporals.format(recentPost.date, 'dd MMM yyyy')}"></time>
                 </div>
               </div><!-- End recent post item-->
 
